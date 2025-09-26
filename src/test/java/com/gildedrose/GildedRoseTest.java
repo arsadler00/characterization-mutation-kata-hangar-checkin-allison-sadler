@@ -153,6 +153,22 @@ class GildedRoseTest {
     }
 
     @Test
+    void sulfurasHandOfRagnarosSameSellin() {
+        Item[] items = new Item[]{new Item("Sulfuras, Hand of Ragnaros", 10, 0)};
+
+        GildedRose app = new GildedRose(items);
+        int beforeSellIn = app.items[0].sellIn;
+
+        app.updateQuality();
+
+        // verify Sulfuras, sellIn is not decremented
+        assertEquals(10, app.items[0].sellIn);
+
+        // verify Sulfuras, quality is not decremented
+        assertEquals(0, app.items[0].quality);
+    }
+
+    @Test
     void agedBrieSellinDegradesByOneQualityIncreasesByTwo() {
         Item[] items = new Item[] { new Item("Aged Brie", 0, 0) };
 
@@ -172,6 +188,17 @@ class GildedRoseTest {
 
         String actual = app.items[0].sellIn + ", " + app.items[0].quality;
         assertEquals("-6, 0", actual);
+    }
+
+    @Test
+    void conjuredMamaCakesSellInDecreasesByOneAndQualityDecreasesByOne() {
+        Item[] items = new Item[] { new Item("Conjured Mama Cakes", 5, 10) };
+
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+
+        String actual = app.items[0].sellIn + ", " + app.items[0].quality;
+        assertEquals("4, 9", actual);
     }
 
     @Test

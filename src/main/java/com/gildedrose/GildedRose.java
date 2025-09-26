@@ -27,7 +27,7 @@ class GildedRose {
                 if (items[i].quality > 0) {
                     // regular item, degrades in quality
                     if (!itemName.equals("Sulfuras, Hand of Ragnaros")) {
-                        items[i].quality = items[i].quality - 1;
+                        items[i].quality--;
                     }
                 }
                 // TODO - implement conjured item.
@@ -41,29 +41,28 @@ class GildedRose {
                 }
             } else {
                 if (items[i].quality < 50) {
-                    items[i].quality = items[i].quality + 1;
+                    items[i].quality++;
                     // Special handling for Backstage passes here...
                     if (itemName.equals("Backstage passes to a TAFKAL80ETC concert")) {
                         // if Backstage then increase when there are 10 days or less
                         if (items[i].sellIn < 11) {
                             // and if quality of an item is less than 50
                             if (items[i].quality < 50) {
-                                items[i].quality = items[i].quality + 1;
+                                items[i].quality++;
                             }
                         }
                         // Tickets increase even more when there are 5 days or less
                         if (items[i].sellIn < 6) {
                             // But not more than 50
                             if (items[i].quality < 50) {
-                                items[i].quality = items[i].quality + 1;
+                                items[i].quality++;
                             }
                         }
                     }
                 }
             }
-            // Decrease SellIn for Sulfuras
             if (!itemName.equals("Sulfuras, Hand of Ragnaros")) {
-                items[i].sellIn = items[i].sellIn - 1;
+                items[i].sellIn--;
             }
             // Check for expired items
             if (items[i].sellIn < 0) {
@@ -73,17 +72,17 @@ class GildedRose {
                         if (items[i].quality > 0) {
                             if (!itemName.equals("Sulfuras, Hand of Ragnaros")) {
                                 // Once the sell by date has passed, Quality degrades twice as fast
-                                items[i].quality = items[i].quality - 1;
+                                items[i].quality--;
                             }
                         }
                     } else {
                         // Expired Backstage passes are worthless
-                        items[i].quality = items[i].quality - items[i].quality;
+                        items[i].quality = 0;
                     }
                 } else {
                     // Handle items that increase in quality but not more than 50!
                     if (items[i].quality < 50) {
-                        items[i].quality = items[i].quality + 1;
+                        items[i].quality++;
                         // items[i].quality = items[i].quality > 0 ? items[i].quality + 1 : items[i].quality;
                     }
                 }
