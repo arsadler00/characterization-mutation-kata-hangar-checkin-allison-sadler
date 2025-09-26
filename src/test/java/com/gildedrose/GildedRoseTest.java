@@ -120,8 +120,8 @@ class GildedRoseTest {
     }
 
     @Test
-    void sulfurasHandOfRagnarosSameQualityWhenInitialQualityIsLessThan50() {
-        Item[] items = new Item[]{new Item("Sulfuras, Hand of Ragnaros", 0, 0)};
+    void backstagePassesQuality0WhenSellInIsLessThan0() {
+        Item[] items = new Item[]{new Item("Backstage passes to a TAFKAL80ETC concert", -1, 20)};
 
         GildedRose app = new GildedRose(items);
         int beforeSellIn = app.items[0].sellIn;
@@ -129,11 +129,27 @@ class GildedRoseTest {
 
         app.process();
 
+        // verify Backstage passes, sellIn is decremented by 1
+        assertEquals(beforeSellIn - 1, app.items[0].sellIn);
+
+        // verify Backstage passes, quality is incremented by 2
+        assertEquals(0, app.items[0].quality);
+    }
+
+    @Test
+    void sulfurasHandOfRagnarosSameQualityWhenInitialQualityIsLessThan50() {
+        Item[] items = new Item[]{new Item("Sulfuras, Hand of Ragnaros", 0, 0)};
+
+        GildedRose app = new GildedRose(items);
+        int beforeSellIn = app.items[0].sellIn;
+
+        app.process();
+
         // verify Sulfuras, sellIn is not decremented
         assertEquals(beforeSellIn, app.items[0].sellIn);
 
         // verify Sulfuras, quality is not decremented
-        assertEquals(beforeQuality, app.items[0].quality);
+        assertEquals(0, app.items[0].quality);
     }
 
     @Test
