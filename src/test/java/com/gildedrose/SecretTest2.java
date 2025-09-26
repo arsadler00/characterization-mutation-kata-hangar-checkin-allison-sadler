@@ -9,7 +9,7 @@ class SecretTest2 {
         Item[] items = new Item[] { new Item("Aged Brie", 5,5 ) };
 
         GildedRose app = new GildedRose(items);
-        app.process();
+        app.updateQuality();
 
         String actual = app.items[0].sellIn + ", " + app.items[0].quality;
         assertEquals("4, 6", actual);
@@ -20,7 +20,7 @@ class SecretTest2 {
         Item[] items = new Item[] { new Item("Aged Brie", 5,51 ) };
 
         GildedRose app = new GildedRose(items);
-        app.process();
+        app.updateQuality();
 
         String actual = app.items[0].sellIn + ", " + app.items[0].quality;
         assertEquals("4, 51", actual);
@@ -31,7 +31,7 @@ class SecretTest2 {
         Item[] items = new Item[] { new Item("Aged Brie", 8,40) };
 
         GildedRose app = new GildedRose(items);
-        app.process();
+        app.updateQuality();
 
         String actual = app.items[0].sellIn + ", " + app.items[0].quality;
         assertEquals("7, 41", actual);
@@ -42,7 +42,7 @@ class SecretTest2 {
         Item[] items = new Item[] { new Item("Backstage passes to a TAFKAL80ETC concert", 0, 0) };
 
         GildedRose app = new GildedRose(items);
-        app.process();
+        app.updateQuality();
 
         String actual = app.items[0].sellIn + ", " + app.items[0].quality;
         assertEquals("-1, 0", actual);
@@ -53,7 +53,7 @@ class SecretTest2 {
         Item[] items = new Item[] { new Item("Backstage passes to a TAFKAL80ETC concert", 10, 40) };
 
         GildedRose app = new GildedRose(items);
-        app.process();
+        app.updateQuality();
 
         String actual = app.items[0].sellIn + ", " + app.items[0].quality;
         assertEquals("9, 42", actual);
@@ -64,7 +64,7 @@ class SecretTest2 {
         Item[] items = new Item[] { new Item("Backstage passes to a TAFKAL80ETC concert", 5, 40) };
 
         GildedRose app = new GildedRose(items);
-        app.process();
+        app.updateQuality();
 
         String actual = app.items[0].sellIn + ", " + app.items[0].quality;
         assertEquals("4, 43", actual);

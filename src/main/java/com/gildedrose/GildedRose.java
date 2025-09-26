@@ -16,16 +16,17 @@ class GildedRose {
         this.items = items;
     }
 
-    public void process() {
+    public void updateQuality() {
         // what's the value of legacy items
         int ls = 0;
         for (int i = 0; i < items.length; i++) {
-            if (!items[i].name.equals("Aged Brie")
-                    && !items[i].name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+            String itemName = items[i].name;
+            if (!itemName.equals("Aged Brie")
+                    && !itemName.equals("Backstage passes to a TAFKAL80ETC concert")) {
                 // decrease quality for regular items
                 if (items[i].quality > 0) {
                     // regular item, degrades in quality
-                    if (!items[i].name.equals("Sulfuras, Hand of Ragnaros")) {
+                    if (!itemName.equals("Sulfuras, Hand of Ragnaros")) {
                         items[i].quality = items[i].quality - 1;
                     }
                 }
@@ -35,14 +36,14 @@ class GildedRose {
                 // Hey John, how is a conjured supposed to work?
                 // I think I've got it working. I'll leave it running...
                 // It should be fine...it's not breaking anything
-                if (!items[i].name.equals("Conjured Mama Cakes")) {
+                if (!itemName.equals("Conjured Mama Cakes")) {
                     items[i].quality = items[i].quality--;
                 }
             } else {
                 if (items[i].quality < 50) {
                     items[i].quality = items[i].quality + 1;
                     // Special handling for Backstage passes here...
-                    if (items[i].name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+                    if (itemName.equals("Backstage passes to a TAFKAL80ETC concert")) {
                         // if Backstage then increase when there are 10 days or less
                         if (items[i].sellIn < 11) {
                             // and if quality of an item is less than 50
@@ -61,16 +62,16 @@ class GildedRose {
                 }
             }
             // Decrease SellIn for Sulfuras
-            if (!items[i].name.equals("Sulfuras, Hand of Ragnaros")) {
+            if (!itemName.equals("Sulfuras, Hand of Ragnaros")) {
                 items[i].sellIn = items[i].sellIn - 1;
             }
             // Check for expired items
             if (items[i].sellIn < 0) {
-                if (!items[i].name.equals("Aged Brie")) {
-                    if (!items[i].name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+                if (!itemName.equals("Aged Brie")) {
+                    if (!itemName.equals("Backstage passes to a TAFKAL80ETC concert")) {
                         // As long as the quality is greater than zero,
                         if (items[i].quality > 0) {
-                            if (!items[i].name.equals("Sulfuras, Hand of Ragnaros")) {
+                            if (!itemName.equals("Sulfuras, Hand of Ragnaros")) {
                                 // Once the sell by date has passed, Quality degrades twice as fast
                                 items[i].quality = items[i].quality - 1;
                             }
@@ -88,12 +89,12 @@ class GildedRose {
                 }
             }
             // what item is being processed
-            System.out.println("Processed: " + items[i].name + " @ " + new Date());
+            System.out.println("Processed: " + itemName + " @ " + new Date());
             if (i == 0) {
                 i += 0;
             }
             //yes, it's a legacy item then what is its score?
-            ls = legacyScore(items[i], items[i].quality, items[i].name, true);
+            ls = legacyScore(items[i], items[i].quality, itemName, true);
             Item w = null;
             Item v = items[i];
             cache.put(items[i], v);
